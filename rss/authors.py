@@ -14,13 +14,20 @@ def add_author(author):
             cur.execute(sql, author)
             conn.commit()
             return cur.lastrowid
+            print(f"Author {author[0]} added to the database with ID {cur.lastrowid}")
+
     except sqlite3.Error as e:
-        print(f"Database error: {e}")
+        if str(e) == "UNIQUE constraint failed: authors.link":
+            ###print(f"Author: {author[0]} already exists in the database.")
+            return None
+        else:
+            print(f"Database error: {e}")
         return None
     
 #Function to parse authors from the website Not general
 def parse_nefes(url,parser):
     session = requests.Session()  # Use session for efficiency
+    print(f"Parsing authors from {url} using parser {parser}")
     try:
         response = session.get(url, timeout=10)  # Set timeout
         response.raise_for_status()
@@ -43,10 +50,13 @@ def parse_nefes(url,parser):
         print(f"Error fetching webpage: {e}")
     except Exception as e:
         print(f"Unexpected error during parsing: {e}")
+    print("Finished parsing authors from Nefes")
+    print("-----------------------------------")
 
 #Function to parse authors from the website Not general
 def parse_ekonomim(url, parser):
     session = requests.Session()  # Use session for efficiency
+    print(f"Parsing authors from {url} using parser {parser}")
     try:
         response = session.get(url, timeout=10)  # Set timeout
         response.raise_for_status()
@@ -69,10 +79,13 @@ def parse_ekonomim(url, parser):
         print(f"Error fetching webpage: {e}")
     except Exception as e:
         print(f"Unexpected error during parsing: {e}")
+    print("Finished parsing authors from Ekonomim")
+    print("--------------------------------------")
 
 #Function to parse authors from the website Not general
 def parse_cumhuriyet(url, parser):
     session = requests.Session()  # Use session for efficiency
+    print(f"Parsing authors from {url} using parser {parser}")
     try:
         response = session.get(url, timeout=10)  # Set timeout
         response.raise_for_status()
@@ -98,6 +111,8 @@ def parse_cumhuriyet(url, parser):
         print(f"Error fetching webpage: {e}")
     except Exception as e:
         print(f"Unexpected error during parsing: {e}")
+    print("Finished parsing authors from Cumhuriyet")
+    print("----------------------------------------")
 
 if __name__ == "__main__":
     parse_nefes("https://www.nefes.com.tr/yazarlar","nefes")
