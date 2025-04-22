@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import sqlite3
 from datetime import datetime
 
-DB_PATH = "./rss/articles.db"
+DB_PATH = "articles.db"
 TB_ARTICLES = "articles"
 TB_AUTHORS = "authors"
 

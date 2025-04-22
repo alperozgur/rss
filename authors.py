@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import sqlite3
 
-DB_PATH = "./rss/articles.db"
+DB_PATH = "articles.db"
 TB_AUTHORS = "authors"
 
 #Function to add author to the database GENERAL

@@ -5,7 +5,7 @@ from datetime import datetime
 from feedgen.feed import FeedGenerator
 import pytz
 
-DB_PATH = "./rss/articles.db"
+DB_PATH = "articles.db"
 TB_ARTICLES = "articles"
 TB_AUTHORS = "authors"
 DOMAIN = "https://alperozgur.github.io/"
@@ -45,7 +45,7 @@ def generate_rss(short_name, author, author_link, parser):
             except ValueError:
                 print(f"Invalid date for article '{title}': {date_str}")
 
-        output_path = f"{RSS_DIR}/{parser}/{short_name}.xml"
+        output_path = f"{parser}/{short_name}.xml"
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
         fg.rss_file(output_path)
         print(f"RSS generated: {output_path}")
@@ -75,7 +75,7 @@ def fetch_authors_and_generate_feeds():
             xml_url = f"{DOMAIN}{RSS_DIR}/{parser}/{short}.xml"
             ET.SubElement(body, "outline", text=author, type="link", xmlUrl=xml_url)
 
-        opml_path = f"{RSS_DIR}/index.opml"
+        opml_path = f"index.opml"
         with open(opml_path, "wb") as f:
             ET.ElementTree(opml).write(f, encoding="utf-8", xml_declaration=True)
         print(f"OPML written: {opml_path}")
@@ -175,4 +175,4 @@ def generate_html(opml_path, html_path):
 
 if __name__ == "__main__":
     fetch_authors_and_generate_feeds()
-    generate_html(f"{RSS_DIR}/index.opml", f"{RSS_DIR}/index.html")
+    generate_html(f"index.opml", f"index.html")
