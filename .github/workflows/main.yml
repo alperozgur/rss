@@ -1,6 +1,10 @@
 name: RSS Updater
 
 on:
+  push:
+    branches:
+      - main
+      - master
   schedule:
     - cron: "00 08 * * *"    #runs at 08:00 UTC everyday
   # Allows you to run this workflow manually from the Actions tab
